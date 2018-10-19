@@ -428,7 +428,7 @@ final class CipherSuiteConverter {
         }
 
         if (cipherBuilder.length() == 0 && cipherTLSv13Builder.length() == 0) {
-            throw new IllegalArgumentException("empty cipher suites");
+            //throw new IllegalArgumentException("empty cipher suites");
         }
         if (cipherBuilder.length() > 0) {
             cipherBuilder.setLength(cipherBuilder.length() - 1);

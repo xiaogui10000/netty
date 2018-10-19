@@ -252,8 +252,11 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
                     CipherSuiteConverter.convertToCipherStrings(
                             unmodifiableCiphers, cipherBuilder, cipherTLSv13Builder);
 
-                    // Set non TLSv1.3 ciphers.
-                    SSLContext.setCipherSuite(ctx, cipherBuilder.toString(), false);
+                    if (cipherBuilder.length() > 0 && !OpenSsl.isBoringSSL()) {
+                        // Set non TLSv1.3 ciphers.
+                        SSLContext.setCipherSuite(ctx, cipherBuilder.toString(), false);
+                    }
+
                     if (tlsv13Supported) {
                         // Set TLSv1.3 ciphers.
                         SSLContext.setCipherSuite(ctx, cipherTLSv13Builder.toString(), true);
